@@ -19,32 +19,47 @@ async function route() {
   // /?category=menning
 
   // Ef svo er, birtum fréttir fyrir þann flokk
-  console.log(window.location.pathname);
+  console.log("location:: " + window.location.search);
   let fetched;
   // Annars birtum við „forsíðu“
-  if(window.location.pathname === "/"){ // ef á forsíðu
+  if(window.location.search === ""){ // ef á forsíðu
     console.log("location === /");
     fetched = await fetchNews("");
-  }else{
-    if(window.location.pathname === "/?category=menning"){
-      console.log("location menning");
-      fetchNews("menning");
+
+    console.log("er með: " + fetched[0].id);
+    let len;
+    if(fetched.length > 5){
+      len = 5;
     }else{
+      len = fetched.length;
+    }
+
+    for(let i = 0; i < len; i++){
+      fetchAndRenderLists(fetched[i].id,fetched.length);
+    }
+  }else{
+    let location = window.location.search.substr(10,window.location.search.length)
+    console.log(location);
+    fetched = await fetchNews(location);
+
+    fetchAndRenderLists(fetched.title,1);
+/*
+    if(window.location.search === "?category=menning"){
+      console.log("location menning");
+      fetched = await fetchNews("menning");
+
+      console.log("menning fetched er: " + fetched.title);
+
+      fetchAndRenderLists(fetched.title,1);
+
+    }
+    else{
       console.log("þú ert einhverstaðar þar sem þú átt ekki að vera!!!!");
     }
+    */
   }
 
-  console.log("er með: " + fetched[0].id);
-  let len;
-  if(fetched.length > 5){
-    len = 5;
-  }else{
-    len = fetched.length;
-  }
 
-  for(let i = 0; i < len; i++){
-    fetchAndRenderLists(fetched[i].id,fetched.length);
-  }
 
 }
 
