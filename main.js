@@ -1,5 +1,7 @@
 // TODO importa því sem nota þarf
 
+import { fetchNews } from "./lib/news.js";
+
 /** Fjöldi frétta til að birta á forsíðu */
 const CATEGORY_ITEMS_ON_FRONTPAGE = 5;
 
@@ -16,8 +18,20 @@ function route() {
   // /?category=menning
 
   // Ef svo er, birtum fréttir fyrir þann flokk
-
+  console.log(window.location.pathname);
   // Annars birtum við „forsíðu“
+  if(window.location.pathname === "/"){ // ef á forsíðu
+    console.log("location === /");
+    fetchNews("");
+  }else{
+    if(window.location.pathname === "/?category=menning"){
+      console.log("location menning");
+      fetchNews("menning");
+    }else{
+      console.log("þú ert einhverstaðar þar sem þú átt ekki að vera!!!!");
+    }
+  }
+
 }
 
 /**
