@@ -1,6 +1,7 @@
 // TODO importa því sem nota þarf
 
 import { fetchNews } from "./lib/news.js";
+import { fetchAndRenderLists } from "./lib/ui.js";
 
 /** Fjöldi frétta til að birta á forsíðu */
 const CATEGORY_ITEMS_ON_FRONTPAGE = 5;
@@ -13,16 +14,17 @@ const main = document.querySelector('main');
  * - `/` birtir yfirlit
  * - `/?category=X` birtir yfirlit fyrir flokk `X`
  */
-function route() {
+async function route() {
   // Athugum hvort það sé verið að biðja um category í URL, t.d.
   // /?category=menning
 
   // Ef svo er, birtum fréttir fyrir þann flokk
   console.log(window.location.pathname);
+  let fetched;
   // Annars birtum við „forsíðu“
   if(window.location.pathname === "/"){ // ef á forsíðu
     console.log("location === /");
-    fetchNews("");
+    fetched = await fetchNews("");
   }else{
     if(window.location.pathname === "/?category=menning"){
       console.log("location menning");
@@ -30,6 +32,18 @@ function route() {
     }else{
       console.log("þú ert einhverstaðar þar sem þú átt ekki að vera!!!!");
     }
+  }
+
+  console.log("er með: " + fetched[0].id);
+  let len;
+  if(fetched.length > 5){
+    len = 5;
+  }else{
+    len = fetched.length;
+  }
+
+  for(let i = 0; i < len; i++){
+    fetchAndRenderLists(fetched[i].id,fetched.length);
   }
 
 }

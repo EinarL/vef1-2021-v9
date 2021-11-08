@@ -75,19 +75,19 @@ main {
 
   overflow: hidden;
 }
-
-.news p {
+ /* ÞETTA VAR .news p */
+.news {
   padding: 0 1rem 1rem 1rem;
 }
 
 .news__title {
-  margin: 0 0 1rem 0;
-  padding: 0 1rem;
+  margin: 1em 0 1rem 0;
+  padding: 0 .1rem;
 }
 
 .news__list {
   margin: 0 0 1rem 0;
-  padding: 0 1rem;
+  padding: 0 .1rem;
   list-style: none;
 }
 
@@ -115,5 +115,11 @@ main {
   text-decoration: none;
 
   font-weight: bold;
+  color: #222;
+}
+
+a{
+  /* til að fjarlægja stíla frá linkum */
+  text-decoration: none;
   color: #222;
 }
