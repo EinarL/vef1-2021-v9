@@ -19,12 +19,11 @@ async function route() {
   // /?category=menning
 
   // Ef svo er, birtum fréttir fyrir þann flokk
-  console.log("location:: " + window.location.search);
   let fetched;
   // Annars birtum við „forsíðu“
   if(window.location.search === ""){ // ef á forsíðu
-    console.log("location === /");
     fetched = await fetchNews("");
+    console.log("fetched news: " + fetched[0]);
 
     console.log("er með: " + fetched[0].id);
     let len;
@@ -33,13 +32,14 @@ async function route() {
     }else{
       len = fetched.length;
     }
-
+    if(fetched === null){
+      console.log("villa kom upp, fethced er null");
+    }
     for(let i = 0; i < len; i++){
       fetchAndRenderLists(fetched[i].id,fetched.length);
     }
   }else{
     let location = window.location.search.substr(10,window.location.search.length)
-    console.log(location);
     fetched = await fetchNews(location);
 
     fetchAndRenderLists(fetched.title,1);
