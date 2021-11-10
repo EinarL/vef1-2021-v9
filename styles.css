@@ -134,3 +134,7 @@ a{
 .news__larger {
   grid-template-columns: 1fr;
 }
+
+.error-text {
+  margin-top: 1.3em;
+}

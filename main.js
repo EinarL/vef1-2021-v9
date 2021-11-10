@@ -22,21 +22,25 @@ async function route() {
   let fetched;
   // Annars birtum við „forsíðu“
   if(window.location.search === ""){ // ef á forsíðu
-    fetched = await fetchNews("");
-    console.log("fetched news: " + fetched[0]);
 
-    console.log("er með: " + fetched[0].id);
-    let len;
-    if(fetched.length > 5){
-      len = 5;
-    }else{
-      len = fetched.length;
-    }
+    fetched = await fetchNews("");
     if(fetched === null){
       console.log("villa kom upp, fethced er null");
-    }
-    for(let i = 0; i < len; i++){
-      fetchAndRenderLists(fetched[i].id,fetched.length);
+      let parent = document.querySelector(".layout__main");
+      let err = document.createElement("p");
+      err.innerText = "Villa kom upp";
+      parent.appendChild(err);
+    }else{
+      let len;
+      if(fetched.length > 5){
+        len = 5;
+      }else{
+        len = fetched.length;
+      }
+
+      for(let i = 0; i < len; i++){
+        fetchAndRenderLists(fetched[i].id,len);
+      }
     }
   }else{
     let location = window.location.search.substr(10,window.location.search.length)
