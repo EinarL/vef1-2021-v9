@@ -12,10 +12,14 @@ const main = document.querySelector('main');
 async function route() {
   let fetched;
 
+  const fetchingText = document.createElement('p');
+  fetchingText.innerText = 'Sæki lista af fréttum...';
+  main.appendChild(fetchingText);
+
   if (window.location.search === '') {
     // ef á forsíðu
-
     fetched = await fetchNews('');
+    main.removeChild(fetchingText);
     if (fetched === null) {
       const err = document.createElement('p');
       err.innerText = 'Villa kom upp';
@@ -38,6 +42,7 @@ async function route() {
       window.location.search.length
     );
     fetched = await fetchNews(location);
+    main.removeChild(fetchingText);
 
     if (fetched === null) {
       const err = document.createElement('p');
