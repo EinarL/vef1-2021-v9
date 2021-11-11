@@ -11,6 +11,7 @@ module.exports = {
   rules: {
     'no-restricted-syntax': 0,
     'import/prefer-default-export': 0,
+    'no-plusplus': 0, // leyfa að hafa '++'
     quotes: ['error', 'single'],
     'no-console': [
       'warn',
